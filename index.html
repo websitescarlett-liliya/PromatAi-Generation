@@ -1,342 +1,136 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt2Code AI - Intelligent Code Generator</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome untuk Icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Highlight.js untuk Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCARLETT III - Official</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Poppins',sans-serif}</style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased flex h-screen overflow-hidden">
+<body class="bg-[#0f0f0f] text-white min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between hidden md:flex">
-        <div>
-            <!-- Logo -->
-            <div class="p-5 flex items-center space-x-3 border-b border-slate-800">
-                <div class="bg-brand-500 text-slate-950 p-2 rounded-xl font-bold text-xl flex items-center justify-center w-10 h-10">
-                    <i class="fa-solid fa-code"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg tracking-wide">Prompt2Code</h1>
-                    <span class="text-xs text-brand-500 font-medium flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span> Auto-API Active
-                    </span>
-                </div>
-            </div>
+<nav class="fixed w-full z-40 bg-[#0f0f0f]/80 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-pink-500">SCARLETT<span class="text-white"> III</span></h1>
+    <div class="flex gap-2 items-center">
+      <button onclick="openSettings()" class="w-10 h-10 bg-white/10 rounded-full hover:bg-white/20 transition">Set</button>
+      <button onclick="openModal('login')" class="px-5 py-2 border border-pink-500 rounded-full hover:bg-pink-500 transition text-sm">Login</button>
+      <button onclick="openModal('register')" class="px-5 py-2 bg-pink-500 rounded-full hover:bg-pink-600 transition text-sm font-semibold">Daftar</button>
+    </div>
+  </div>
+</nav>
 
-            <!-- Navigation Menu -->
-            <nav class="p-4 space-y-1">
-                <a href="#" onclick="switchTab('generator')" id="nav-generator" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-brand-600 text-white font-medium transition shadow-lg shadow-brand-600/20">
-                    <i class="fa-solid fa-wand-magic-sparkles w-5"></i>
-                    <span>AI Generator</span>
-                </a>
-                <a href="#" onclick="switchTab('templates')" id="nav-templates" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition">
-                    <i class="fa-solid fa-layer-group w-5"></i>
-                    <span>Templates Library</span>
-                </a>
-                <a href="#" onclick="switchTab('history')" id="nav-history" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition">
-                    <i class="fa-solid fa-clock-rotate-left w-5"></i>
-                    <span>Riwayat Projek</span>
-                </a>
-                <a href="#" onclick="switchTab('settings')" id="nav-settings" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition">
-                    <i class="fa-solid fa-gear w-5"></i>
-                    <span>Pengaturan & API</span>
-                </a>
-            </nav>
+<section class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h2 class="text-5xl font-bold leading-tight">Website Resmi<br><span class="text-pink-500">Scarlett III</span></h2>
+      <p class="mt-4 text-white/60">Server stabil, event harian, komunitas solid. Login untuk melihat setting akun.</p>
+      <div class="mt-8 flex gap-3">
+        <button onclick="openModal('register')" class="px-8 py-3 bg-pink-500 rounded-full font-semibold">Mulai Sekarang</button>
+        <button onclick="openSettings()" class="px-8 py-3 bg-white/10 rounded-full border border-white/10">Buka Setting</button>
+      </div>
+      <p id="userInfo" class="mt-6 text-sm text-pink-400"></p>
+    </div>
+    <div class="bg-gradient-to-br from-pink-500 to-purple-600 p-[1px] rounded-3xl">
+      <div class="bg-[#1a1a1a] rounded-3xl p-6">
+        <h3 class="font-semibold">Status Server</h3>
+        <div class="mt-4 space-y-3 text-sm">
+          <div class="flex justify-between"><span>Login Server</span><span class="text-green-400">Online</span></div>
+          <div class="flex justify-between"><span>Char Server</span><span class="text-green-400">Online</span></div>
+          <div class="flex justify-between"><span>Map Server</span><span class="text-green-400">Online</span></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- User / Credits Info -->
-        <div class="p-4 border-t border-slate-800">
-            <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-                <div class="flex justify-between text-xs mb-1">
-                    <span class="text-slate-400">Token Gratis Harian</span>
-                    <span class="text-brand-500 font-bold">850 / 1000</span>
-                </div>
-                <div class="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                    <div class="bg-brand-500 h-full w-[85%]"></div>
-                </div>
-            </div>
-        </div>
-    </aside>
+<!-- MODAL LOGIN/REGISTER -->
+<div id="modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[100] p-4">
+  <div class="bg-white text-black rounded-2xl w-full max-w-md p-8 relative">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-xl">X</button>
+    <h3 id="modalTitle" class="text-2xl font-bold mb-6">Login</h3>
+    <form onsubmit="handleAuth(event)" class="space-y-4">
+      <input id="email" type="text" placeholder="Username" required class="w-full px-4 py-3 rounded-xl border outline-none focus:border-pink-500">
+      <input id="password" type="password" placeholder="Password" required class="w-full px-4 py-3 rounded-xl border outline-none focus:border-pink-500">
+      <div id="extraField" class="hidden"><input id="confirm" type="password" placeholder="Konfirmasi Password" class="w-full px-4 py-3 rounded-xl border outline-none focus:border-pink-500"></div>
+      <button type="submit" class="w-full py-3 bg-pink-500 text-white rounded-xl font-semibold">Submit</button>
+    </form>
+    <p id="switchText" class="text-center text-sm mt-4 text-gray-500"></p>
+  </div>
+</div>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
-        <!-- Top Header -->
-        <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-6 py-4 flex justify-between items-center sticky top-0 z-20">
-            <div class="flex items-center space-x-4">
-                <button class="md:hidden text-slate-400 hover:text-white"><i class="fa-solid fa-bars text-xl"></i></button>
-                <h2 id="page-title" class="text-xl font-bold">AI Code Generator</h2>
-            </div>
-            <div class="flex items-center space-x-3">
-                <button onclick="switchTab('settings')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg text-sm flex items-center space-x-2 border border-slate-700 transition">
-                    <i class="fa-solid fa-key text-brand-500"></i>
-                    <span class="hidden sm:inline">Auto API: <strong class="text-brand-400">Connected</strong></span>
-                </button>
-                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950">
-                    AI
-                </div>
-            </div>
-        </header>
+<!-- PANEL SETTING -->
+<div id="settingsPanel" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[100] p-4">
+  <div class="bg-[#1e1e1e] border border-white/10 rounded-2xl w-full max-w-sm p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-bold">Pengaturan</h3>
+      <button onclick="closeSettings()" class="w-8 h-8 bg-white/10 rounded-full">X</button>
+    </div>
+    <div class="space-y-5">
+      <div>
+        <label class="text-sm text-white/50">Display Name</label>
+        <input id="setName" type="text" placeholder="Nama" class="mt-1 w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 outline-none focus:border-pink-500">
+      </div>
+      <label class="flex justify-between items-center py-2 border-b border-white/5">BGM Musik <input id="bgmToggle" type="checkbox" checked class="w-5 h-5"></label>
+      <label class="flex justify-between items-center py-2 border-b border-white/5">Notifikasi Event <input id="notifToggle" type="checkbox" checked class="w-5 h-5"></label>
+      <label class="flex justify-between items-center py-2">Mode Hemat <input id="hematToggle" type="checkbox" class="w-5 h-5"></label>
+    </div>
+    <button onclick="saveSettings()" class="w-full mt-6 py-3 bg-pink-500 rounded-xl font-semibold hover:bg-pink-600">Simpan Setting</button>
+    <button onclick="resetSettings()" class="w-full mt-2 py-3 bg-white/10 rounded-xl text-sm text-white/60">Reset Semua</button>
+  </div>
+</div>
 
-        <!-- TAB 1: GENERATOR -->
-        <div id="tab-generator" class="p-6 max-w-7xl mx-auto w-full space-y-6">
-            <!-- Prompt Box Section -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl relative">
-                <div class="absolute top-3 right-3 flex items-center space-x-2">
-                    <span class="text-xs bg-slate-800 text-slate-400 px-2.5 py-1 rounded-md border border-slate-700">Model: <strong class="text-slate-200">GPT-4o / Claude 3.5 Sonnet</strong></span>
-                </div>
-                <label for="prompt-input" class="block text-sm font-medium text-slate-300 mb-2">Tuliskan Prompt Keinginan Website Kamu:</label>
-                <textarea id="prompt-input" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition resize-none" placeholder="Contoh: Buatkan landing page toko online sepatu lengkap dengan keranjang belanja, dark mode, dan animasi interaktif menggunakan Tailwind CSS..."></textarea>
-                
-                <div class="flex flex-wrap justify-between items-center mt-4 gap-3">
-                    <div class="flex items-center space-x-2">
-                        <select id="framework-select" class="bg-slate-950 border border-slate-800 text-slate-300 text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500">
-                            <option value="html">HTML / Tailwind CSS (Single File)</option>
-                            <option value="react">React.js Component</option>
-                            <option value="vue">Vue.js Single File</option>
-                            <option value="next">Next.js Page</option>
-                        </select>
-                        <button onclick="insertSamplePrompt()" class="text-xs text-brand-400 hover:underline bg-brand-500/10 px-3 py-2 rounded-lg border border-brand-500/20">
-                            <i class="fa-solid fa-lightbulb mr-1"></i> Contoh Prompt
-                        </button>
-                    </div>
-                    <button onclick="generateCode()" id="generate-btn" class="bg-brand-600 hover:bg-brand-500 text-white px-6 py-2.5 rounded-xl font-medium transition flex items-center space-x-2 shadow-lg shadow-brand-600/30">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Generate Code</span>
-                    </button>
-                </div>
-            </div>
+<script>
+let mode='login';
+const modal=document.getElementById('modal');
+const settingsPanel=document.getElementById('settingsPanel');
 
-            <!-- Output Result Section -->
-            <div id="output-section" class="hidden bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
-                <!-- Result Header Tabs -->
-                <div class="bg-slate-950 px-5 py-3 border-b border-slate-800 flex justify-between items-center flex-wrap gap-2">
-                    <div class="flex space-x-2">
-                        <button onclick="switchOutputView('code')" id="btn-view-code" class="px-4 py-2 rounded-lg text-sm font-medium bg-slate-800 text-white transition">
-                            <i class="fa-solid fa-code mr-1.5"></i> Source Code
-                        </button>
-                        <button onclick="switchOutputView('preview')" id="btn-view-preview" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition">
-                            <i class="fa-solid fa-globe mr-1.5"></i> Live Preview
-                        </button>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="copyCode()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs flex items-center space-x-1 border border-slate-700 transition">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Salin Kode</span>
-                        </button>
-                        <button onclick="downloadCode()" class="bg-brand-600 hover:bg-brand-500 text-white px-3 py-1.5 rounded-lg text-xs flex items-center space-x-1 transition">
-                            <i class="fa-solid fa-download"></i>
-                            <span>Download File</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Code View Content -->
-                <div id="view-code-content" class="p-0 relative">
-                    <pre><code id="code-block" class="html rounded-none p-5 text-sm max-h-[500px] overflow-y-auto"></code></pre>
-                </div>
-
-                <!-- Preview View Content -->
-                <div id="view-preview-content" class="hidden w-full h-[500px] bg-white">
-                    <iframe id="preview-iframe" class="w-full h-full border-0"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 2: TEMPLATES -->
-        <div id="tab-templates" class="p-6 max-w-7xl mx-auto w-full hidden space-y-6">
-            <h3 class="text-xl font-bold">Pilih Template Cepat</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-brand-500 transition cursor-pointer" onclick="useTemplate('Landing Page Portofolio Modern')">
-                    <div class="h-32 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-brand-500 text-3xl">
-                        <i class="fa-solid fa-id-card"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Portofolio Modern</h4>
-                    <p class="text-xs text-slate-400">Landing page portofolio profesional untuk developer/designer dengan tema gelap.</p>
-                </div>
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-brand-500 transition cursor-pointer" onclick="useTemplate('E-Commerce Dashboard Minimalis')">
-                    <div class="h-32 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-brand-500 text-3xl">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">Toko Online / E-Commerce</h4>
-                    <p class="text-xs text-slate-400">Halaman produk e-commerce lengkap dengan grid, tombol beli, dan cart drawer.</p>
-                </div>
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-brand-500 transition cursor-pointer" onclick="useTemplate('SaaS Startup Landing Page')">
-                    <div class="h-32 bg-slate-800 rounded-lg mb-4 flex items-center justify-center text-brand-500 text-3xl">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-                    <h4 class="font-bold text-lg mb-1">SaaS Startup Landing</h4>
-                    <p class="text-xs text-slate-400">Halaman pemasaran aplikasi SaaS dengan fitur pricing table, FAQ, dan testimoni.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: RIWAYAT -->
-        <div id="tab-history" class="p-6 max-w-7xl mx-auto w-full hidden space-y-4">
-            <h3 class="text-xl font-bold">Riwayat Pembuatan Website</h3>
-            <div class="bg-slate-900 border border-slate-800 rounded-xl divide-y divide-slate-800">
-                <div class="p-4 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-medium text-sm text-slate-200">Landing Page Toko Sepatu</h4>
-                        <p class="text-xs text-slate-500 mt-0.5">Framework: HTML/Tailwind • 10 Menit yang lalu</p>
-                    </div>
-                    <button onclick="switchTab('generator')" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700">Muat Ulang</button>
-                </div>
-                <div class="p-4 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-medium text-sm text-slate-200">Dashboard Admin Analytics</h4>
-                        <p class="text-xs text-slate-500 mt-0.5">Framework: React.js • 2 Hari yang lalu</p>
-                    </div>
-                    <button onclick="switchTab('generator')" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700">Muat Ulang</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 4: SETTINGS & AUTO API KEYS -->
-        <div id="tab-settings" class="p-6 max-w-4xl mx-auto w-full hidden space-y-6">
-            <h3 class="text-xl font-bold">Pengaturan & Manajemen API Keys</h3>
-            
-            <!-- Auto API Keys Feature Box -->
-            <div class="bg-gradient-to-r from-brand-950/40 to-slate-900 border border-brand-500/30 rounded-2xl p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-brand-500/20 text-brand-400 p-3 rounded-xl">
-                            <i class="fa-solid fa-bolt text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-base text-brand-300">Fitur Auto API Keys</h4>
-                            <p class="text-xs text-slate-400">Sistem otomatis mengambil kunci API cadangan dari server untuk kelancaran generasi kode tanpa batas.</p>
-                        </div>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="auto-api-toggle" checked class="sr-only peer">
-                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-                    </label>
-                </div>
-                <div class="text-xs bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-slate-400 flex items-center justify-between">
-                    <span>Status Server Pool: <strong class="text-brand-400">12 API Keys Tersedia (Rotasi Otomatis)</strong></span>
-                    <span class="text-brand-500 font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> Aman & Terenkripsi</span>
-                </div>
-            </div>
-
-            <!-- General Settings Form -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-                <h4 class="font-bold text-md border-b border-slate-800 pb-3">Konfigurasi AI Generator</h4>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Pilih Model AI Utama</label>
-                        <select class="w-full bg-slate-950 border border-slate-800 text-slate-200 text-sm rounded-xl p-3 focus:outline-none focus:border-brand-500">
-                            <option>GPT-4o (OpenAI)</option>
-                            <option>Claude 3.5 Sonnet (Anthropic)</option>
-                            <option>Gemini 1.5 Pro (Google)</option>
-                            <option>DeepSeek Code V3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Kreativitas AI (Temperature)</label>
-                        <input type="range" min="0" max="100" value="70" class="w-full accent-brand-500 mt-3">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Custom API Key (Opsional - Jika ingin pakai milik sendiri)</label>
-                    <input type="password" placeholder="sk-proj-xxxxxxxxxxxxxxxxxxxxxxxx" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brand-500">
-                    <span class="text-[11px] text-slate-500 mt-1 block">Biarkan kosong jika ingin menggunakan fitur Auto API Keys dari sistem.</span>
-                </div>
-
-                <div class="pt-4 flex justify-end">
-                    <button onclick="saveSettings()" class="bg-brand-600 hover:bg-brand-500 text-white px-5 py-2.5 rounded-xl text-sm font-medium transition shadow-lg shadow-brand-600/20">
-                        Simpan Pengaturan
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // Navigasi Tabs
-        function switchTab(tabId) {
-            const tabs = ['generator', 'templates', 'history', 'settings'];
-            tabs.forEach(t => {
-                document.getElementById('tab-' + t).classList.add('hidden');
-                const nav = document.getElementById('nav-' + t);
-                if(nav) {
-                    nav.classList.remove('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/20');
-                    nav.classList.add('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
-                }
-            });
-
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            const activeNav = document.getElementById('nav-' + tabId);
-            if(activeNav) {
-                activeNav.classList.remove('text-slate-400', 'hover:bg-slate-800', 'hover:text-white');
-                activeNav.classList.add('bg-brand-600', 'text-white', 'shadow-lg', 'shadow-brand-600/20');
-            }
-
-            // Ubah Judul Header
-            const titles = {
-                generator: 'AI Code Generator',
-                templates: 'Templates Library',
-                history: 'Riwayat Projek',
-                settings: 'Pengaturan & API'
-            };
-            document.getElementById('page-title').innerText = titles[tabId];
-        }
-
-        // Contoh Prompt
-        function insertSamplePrompt() {
-            document.getElementById('prompt-input').value = "Buatkan landing page aplikasi keuangan digital (Fintech) modern dengan grafik statistik interaktif, tombol pendaftaran, dan bagian testimoni pengguna menggunakan Tailwind CSS.";
-        }
-
-        // Placeholder functions (implementasi asli terpotong di sumber yang diberikan)
-        function generateCode() {
-            console.log('generateCode() called - implementasi lengkap tidak tersedia di sumber yang diberikan.');
-        }
-
-        function switchOutputView(view) {
-            console.log('switchOutputView() called with', view);
-        }
-
-        function copyCode() {
-            console.log('copyCode() called');
-        }
-
-        function downloadCode() {
-            console.log('downloadCode() called');
-        }
-
-        function useTemplate(name) {
-            console.log('useTemplate() called with', name);
-        }
-
-        function saveSettings() {
-            console.log('saveSettings() called');
-        }
-    </script>
+function openModal(t){
+  mode=t;
+  modal.classList.remove('hidden'); modal.classList.add('flex');
+  document.getElementById('modalTitle').innerText = t==='login'?'Login Akun':'Registrasi Akun';
+  document.getElementById('extraField').classList.toggle('hidden', t==='login');
+  document.getElementById('switchText').innerHTML = t==='login'
+? `Belum punya akun? <span onclick="openModal('register')" class="text-pink-500 cursor-pointer font-bold">Daftar</span>`
+  : `Sudah punya akun? <span onclick="openModal('login')" class="text-pink-500 cursor-pointer font-bold">Login</span>`;
+}
+function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); }
+function handleAuth(e){
+  e.preventDefault();
+  const u=document.getElementById('email').value;
+  const p=document.getElementById('password').value;
+  if(mode==='register' && p!==document.getElementById('confirm').value){ alert('Password tidak sama!'); return; }
+  localStorage.setItem('scarlett_user',u);
+  document.getElementById('userInfo').innerText='Login sebagai: '+u;
+  alert(mode==='register'?'Registrasi sukses!':'Login sukses!');
+  closeModal();
+}
+function openSettings(){
+  document.getElementById('setName').value = localStorage.getItem('scarlett_name') || localStorage.getItem('scarlett_user') || '';
+  document.getElementById('bgmToggle').checked = localStorage.getItem('scarlett_bgm')!=='false';
+  document.getElementById('notifToggle').checked = localStorage.getItem('scarlett_notif')!=='false';
+  document.getElementById('hematToggle').checked = localStorage.getItem('scarlett_hemat')==='true';
+  settingsPanel.classList.remove('hidden'); settingsPanel.classList.add('flex');
+}
+function closeSettings(){ settingsPanel.classList.add('hidden'); settingsPanel.classList.remove('flex'); }
+function saveSettings(){
+  localStorage.setItem('scarlett_name', document.getElementById('setName').value);
+  localStorage.setItem('scarlett_bgm', document.getElementById('bgmToggle').checked);
+  localStorage.setItem('scarlett_notif', document.getElementById('notifToggle').checked);
+  localStorage.setItem('scarlett_hemat', document.getElementById('hematToggle').checked);
+  document.getElementById('userInfo').innerText='Setting disimpan. Halo, '+ (document.getElementById('setName').value || 'Player') +'!';
+  closeSettings();
+}
+function resetSettings(){
+  if(confirm('Reset semua setting?')){ localStorage.clear(); alert('Reset beres!'); closeSettings(); location.reload(); }
+}
+window.onload=()=>{
+  const u=localStorage.getItem('scarlett_user');
+  if(u) document.getElementById('userInfo').innerText='Login sebagai: '+u;
+}
+modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+settingsPanel.addEventListener('click', e=>{ if(e.target===settingsPanel) closeSettings(); });
+</script>
 </body>
-</html>
+    </html>
